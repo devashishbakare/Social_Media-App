@@ -9,4 +9,5 @@ router.get("/check", homeController.checking);
 
 //for /user rout telling router to check in users router
 router.use("/user", require("./users"));
+router.use("/post", require("./post"));
 module.exports = router;
