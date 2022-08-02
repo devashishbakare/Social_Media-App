@@ -1,5 +1,7 @@
 module.exports.home = function(req, res){
-    return res.send("This is from home method");
+    return res.render("home", {
+        title : "Home page" 
+    });
 }
 
 module.exports.checking = function(req, res){

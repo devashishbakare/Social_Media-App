@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title>
+            <%= title %>
+        </title>
+        <!-- here your path is relatice you aleady assign assets now you just need this href -->
+        <link rel="stylesheet" href="/css/layout.css">
+        <%- style %>
+    </head>
+    <body>
+
+        <%- include("_header"); %>
+
+        <%- body %>
+
+        <%- include("_footer"); %>
+        
+        <%- script %>
+    </body>
+</html>
