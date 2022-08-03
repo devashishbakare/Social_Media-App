@@ -1,3 +1,4 @@
+<!-- commomn layout for reuse purpose -->
 <html>
     <head>
         <title>
@@ -5,16 +6,21 @@
         </title>
         <!-- here your path is relatice you aleady assign assets now you just need this href -->
         <link rel="stylesheet" href="/css/layout.css">
+        <!-- rendering the link tag for stying as per requirement -->
         <%- style %>
     </head>
     <body>
 
+        <!-- included common header here -->
         <%- include("_header"); %>
 
+        <!-- partial of a page render here -->
         <%- body %>
 
+        <!-- inluded common footer here -->
         <%- include("_footer"); %>
         
+        <!-- rendering the script tag for scripting as per requirement -->
         <%- script %>
     </body>
 </html>
