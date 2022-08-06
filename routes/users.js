@@ -8,9 +8,11 @@ const router = express.Router();
 const userController = require("../controllers/users_controller");
 
 // Accessing method specifit to url
+router.get("/userHomePage", userController.userHome);
 router.get("/sign-up", userController.signUp);
 router.get("/sign-in", userController.signIn);
 router.post("/createUser", userController.create);
-
+router.post("/create-session", userController.createSession);
+router.get("/sign-out", userController.signOut);
 // exporting module to access outside
 module.exports = router;

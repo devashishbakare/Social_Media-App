@@ -1,6 +1,27 @@
 //exporting user form db 
 const User = require("../models/user");
 
+module.exports.userHome = function( req, res) {
+
+    console.log("im in userHome")
+    if (req.cookies.user_id){
+
+    User.findById(req.cookies.user_id, function(err, user){
+        if (err){
+            console.log("Not able to get the details");
+        }
+        if(user){
+            return res.render("user",{
+                userDetails : user
+            })
+        }else{
+            res.redirect("/user/sign-in");
+        }
+    })
+
+    }else res.redirect("/user/sign-in");
+}
+
 // User sign up 
 module.exports.signUp = function( req, res ){
     return res.render("user_sign_up", {
@@ -57,5 +78,33 @@ module.exports.create = function( req, res ) {
 }
 
 module.exports.createSession = function ( req, res ) {
-    //we will do something here
+    console.log("im in create session");
+    // checking email exist or not
+    User.findOne({email : req.body.email}, function(err, user){
+        if ( err ) {
+            console.log("Error while sign in");
+        }
+        
+        if(user){
+        // authenticate password as well
+            if( user.password != req.body.password ){
+                return res.redirect("back");
+            }
+        // if email and password is correct then create cookie
+            res.cookie("user_id", user.id);
+            // render a home page
+            return res.redirect("/user/userHomePage");
+        }else{
+            // if fails to authenticatet then return to sign in page
+            return res.redirect("back");
+        }
+    });
+
+}
+
+module.exports.signOut = function(req, res){
+
+    res.clearCookie('user_id');
+    return res.render("user_sign_in");
+
 }

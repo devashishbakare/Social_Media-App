@@ -4,6 +4,15 @@ const express = require("express");
 // imported cookies after install
 const cookieParser = require("cookie-parser"); 
 
+// Importing db
+const db = require("./config/mongoose");
+
+// Importig UserDB
+const User = require("./models/user");
+
+//import exress-ejs-layouts
+const expressLayouts = require("express-ejs-layouts");
+
 // Firring express and set up a port
 const app = express();
 const port = 8000;
@@ -13,15 +22,6 @@ app.use(cookieParser());
 
 // encode the data which is comming from form
 app.use(express.urlencoded());
-
-//import exress-ejs-layouts
-const expressLayouts = require("express-ejs-layouts");
-
-// Importing db
-const db = require("./config/mongoose");
-
-// Importig UserDB
-const User = require("./models/user");
 
 //assets use
 app.use(express.static("./assets"));
