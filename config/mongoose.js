@@ -8,7 +8,7 @@ mongoose.connect("mongodb://localhost/codeial_development");
 const db = mongoose.connection;
 
 // checking for db connection
-db.on("error", console.error.bind(console, "Erro : To Connecting To MongoDB"));
+db.on("error", console.error.bind(console, "Error : To Connecting To MongoDB"));
 
 // returning reponse if connected
 db.once("open", function() {

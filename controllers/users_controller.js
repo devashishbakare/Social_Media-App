@@ -1,6 +1,7 @@
 //exporting user form db 
 const User = require("../models/user");
 
+
 // User sign up 
 module.exports.signUp = function( req, res ){
     return res.render("user_sign_up", {
@@ -57,5 +58,5 @@ module.exports.create = function( req, res ) {
 }
 
 module.exports.createSession = function ( req, res ) {
-    //we will do something here
+    return res.redirect("/");
 }

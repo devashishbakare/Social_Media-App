@@ -8,11 +8,11 @@ const cookieParser = require("cookie-parser");
 const app = express();
 const port = 8000;
 
-// use cokkieParser to parse the cookies
-app.use(cookieParser());
-
 // encode the data which is comming from form
 app.use(express.urlencoded());
+
+// use cokkieParser to parse the cookies
+app.use(cookieParser());
 
 //import exress-ejs-layouts
 const expressLayouts = require("express-ejs-layouts");
@@ -22,6 +22,11 @@ const db = require("./config/mongoose");
 
 // Importig UserDB
 const User = require("./models/user");
+
+// use for session cookie
+const session = require("express-session");
+const passport = require("passport");
+const passportLocal = require("./config/passport-local-strategy");
 
 //assets use
 app.use(express.static("./assets"));
@@ -33,15 +38,30 @@ app.use(expressLayouts);
 app.set("layout extractStyles", true);
 app.set("layout extractScripts", true);
 
-// Telling app to use this for all routing
-app.use("/", require("./routes/index"));
-
 // Setting view engine app ejs
 app.set("view engine", "ejs");
 
 // Look for views in views folder
 app.set("views", "./views");
 
+// middleware for session cookie
+
+app.use(session(
+    {
+        name : "codeil",
+        //Todo : need to change this secret here
+        secret : "somethingHere",
+        saveUninitialized : false,
+        resave : false,
+        cookie : { maxAge : (1000 * 60 * 100) } 
+    }
+));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Telling app to use this for all routing
+app.use("/", require("./routes/index"));
 
 // Setting up the server
 app.listen(port, function (err) {
