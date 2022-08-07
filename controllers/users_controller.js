@@ -1,6 +1,12 @@
 //exporting user form db 
 const User = require("../models/user");
 
+module.exports.profile = function( req, res){
+    return res.render("home", {
+        title : "profile page"
+    });
+}
+
 
 // User sign up 
 module.exports.signUp = function( req, res ){

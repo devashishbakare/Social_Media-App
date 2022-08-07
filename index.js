@@ -60,6 +60,9 @@ app.use(session(
 app.use(passport.initialize());
 app.use(passport.session());
 
+//setting user details to access in views
+app.set(passport.setAuthenticatedUser);
+
 // Telling app to use this for all routing
 app.use("/", require("./routes/index"));
 
