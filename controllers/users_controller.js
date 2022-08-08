@@ -73,3 +73,11 @@ module.exports.create = function( req, res ) {
 module.exports.createSession = function ( req, res ) {
     return res.redirect("/");
 }
+
+module.exports.deleteSession = function(req, res){
+    
+    req.logout(function(err){
+        if(err) console.log("Eroor whole removing cookie");
+        else return res.redirect("/");
+    });
+}
