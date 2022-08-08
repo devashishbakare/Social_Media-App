@@ -57,7 +57,13 @@ passport.setAuthenticatedUser = function( req, res, next){
     
     //req.user is having user info which are in passport now
     //now using passport we sign in and added cookie to brower but we dont get data in views yet, so we storing to locals
-    res.locals.user = req.user;
+    if(req.isAuthenticated()){
+        res.locals.user = req.user;
+    }
+    
+    next();
 }
+
+
 
 module.exports = passport;

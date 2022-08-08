@@ -2,7 +2,7 @@
 const User = require("../models/user");
 
 module.exports.profile = function( req, res){
-    return res.render("home", {
+    return res.render("user_profile", {
         title : "profile page"
     });
 }
@@ -10,6 +10,10 @@ module.exports.profile = function( req, res){
 
 // User sign up 
 module.exports.signUp = function( req, res ){
+    
+    if(req.isAuthenticated()){
+        return res.redirect("/user/profile");
+    }
     return res.render("user_sign_up", {
         title : "User sign up"
     });
@@ -17,6 +21,10 @@ module.exports.signUp = function( req, res ){
 
 // User sign in
 module.exports.signIn = function ( req, res ) {
+    
+    if(req.isAuthenticated()){
+        return res.redirect("/user/profile");
+    }
     return res.render("user_sign_in", {
         title : "User Sign in"
     });
@@ -24,8 +32,7 @@ module.exports.signIn = function ( req, res ) {
 
 // create user via sign in
 module.exports.create = function( req, res ) {
-    console.log("Im here");
-    console.log(req.body);
+    
     // if password and confirm password are not same
     if(req.body.password != req.body.confirm_password) {
         console.log("Confirm password is wrong");
