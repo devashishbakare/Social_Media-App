@@ -1,27 +1,32 @@
 <!-- common header for layout -->
-<header>
-    <p>Header of page</p>
+<header id = "PageHeader">
 
-<ul>
-    <%if(locals.user){%>
-        <li><%= user.name%></li>
-        <li>
+    <div id = "logo">
+        <a href="/user/home">
+            <p>
+                Just Share
+            </p>
+        </a>
+    </div>
+
+    <div id = "routs">
+        <%if(locals.user){%>
+            <li>
+                <%= user.name%>
+            </li>
+            
             <a href="/user/sign-out">
-                <input type="button" value="Sign-out">
+                <input type="button" value="Sign-out" class="sign-inout-button">
             </a>
-        </li>
-    <%}else{%>
-        <li>
+            
+        <%}else{%>
             <a href="/user/sign-in">
-                <input type="button" value="Sign-in">
+                <input type="button" value="Sign-in" class="sign-inout-button">
             </a>
-        </li>
-        <li>
-            <a href="/user/sign-up">
-                <input type="button" value="Sign-up">
-            </a>
-        </li>
-    <%}%>
-</ul>
+            <a href="/user/sign-up">                        
+                <input type="button" value="Sign-up" class="sign-inout-button">
+             </a>        
+            <%}%>
+    </div>
 
 </header>

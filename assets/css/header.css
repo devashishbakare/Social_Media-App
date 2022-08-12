@@ -1,0 +1,33 @@
+#PageHeader {
+  height: 60px;
+  width: 100%;
+  border: 2px solid black;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0px;
+  background-color: #4e4edf; }
+  #PageHeader #logo {
+    margin-top: -30px;
+    margin-left: 10px; }
+    #PageHeader #logo a {
+      text-decoration: none; }
+      #PageHeader #logo a p {
+        font-size: 2.3rem;
+        font-weight: bolder;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        color: white; }
+  #PageHeader #routs {
+    width: auto;
+    display: flex;
+    flex-direction: row; }
+    #PageHeader #routs a {
+      margin-right: 10px; }
+      #PageHeader #routs a .sign-inout-button {
+        margin: 5px;
+        margin-top: 10px;
+        font-size: large;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        background-color: black;
+        color: white;
+        padding: 5px; }

@@ -4,9 +4,12 @@
         <title>
             <%= title %>
         </title>
-        <!-- here your path is relatice you aleady assign assets now you just need this href -->
-        <link rel="stylesheet" href="/css/layout.css">
+        <!-- here your path is relative, you aleady assign assets, now you just need this href -->
         <!-- rendering the link tag for stying as per requirement -->
+        <link rel="stylesheet" href="/css/layout.css">
+        <link rel="stylesheet" href="/css/header.css">
+        <link rel="stylesheet" href="/css/footer.css">
+        
         <%- style %>
     </head>
     <body>
@@ -15,7 +18,10 @@
         <%- include("_header"); %>
 
         <!-- partial of a page render here -->
-        <%- body %>
+        <main id = "content-body">
+            <%- body %>
+        </main>
+        
 
         <!-- inluded common footer here -->
         <%- include("_footer"); %>

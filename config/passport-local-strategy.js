@@ -32,7 +32,8 @@ passport.serializeUser(function(user, done){
     done(null, user);
 });
 
-// deSerialize : using this cookie to help browser to understand the user
+// deSerialize : using this cookie to help browser to understand the user,
+// fetching data, which set by serialize, deserialize function fetch that id and check in session cookie
 
 passport.deserializeUser(function(id, done){
     User.findById(id, function(err, user){

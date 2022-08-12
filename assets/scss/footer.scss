@@ -1,0 +1,29 @@
+#pageFooter{
+
+    display : flex;
+    flex-direction: row;
+    background-color: rgb(78, 78, 223);
+    height : 60px;
+    width : 100%;
+
+    #home{
+        margin-left : 10px;
+        a{
+            text-decoration: none;
+            p{
+                color : white;
+                text-decoration: none;
+            }
+        }        
+    }
+
+    #profile{
+        margin-left : 10px;
+        a{
+            text-decoration: none;
+            p{
+                color : white;
+            }
+        }
+    }
+}
