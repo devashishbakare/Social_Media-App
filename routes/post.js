@@ -8,6 +8,7 @@ const router = express.Router();
 const postController = require("../controllers/post_controller");
 
 // Accessing method for specific request
+router.post("/create", postController.create);
 router.get("/like", postController.like);
 router.get("/comment", postController.comment);
 router.get("/share", postController.share);

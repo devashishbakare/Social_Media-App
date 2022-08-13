@@ -23,5 +23,6 @@ passport.authenticate( "local", { failureRedirect : "/user/sign-in"}), userContr
 
 router.get("/sign-out", userController.deleteSession);
 
+
 // exporting module to access outside
 module.exports = router;
