@@ -6,8 +6,7 @@ const Post = require("../models/post");
 
 module.exports.home = function(req, res){
     
-    // now we have need to display all the data
-    // so we just have the content and userId 
+    // now we have need to display all the data so we just have the content and userId 
     // fetching/populated feild using userId and display in home page
     Post.find({}).populate("user").exec(function(err, posts){
         
