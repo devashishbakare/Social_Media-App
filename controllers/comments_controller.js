@@ -16,7 +16,7 @@ module.exports.create = function(req, res){
             }, function(err, comment){
                 if(err){console.log("Error while adding data to comment db");}
                 
-                post.comment.push(comment);
+                post.comments.push(comment);
                 post.save();
                 
                 return res.redirect("back");
