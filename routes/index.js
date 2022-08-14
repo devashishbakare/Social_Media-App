@@ -19,5 +19,7 @@ router.use("/user", require("./users"));
 //rounting request of post for post router
 router.use("/post", require("./post"));
 
+//routing request of comments to comments routes
+router.use("/comments", require("./comment"));
 // we have to export to access outside
 module.exports = router;
