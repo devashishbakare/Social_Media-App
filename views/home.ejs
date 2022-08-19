@@ -1,41 +1,52 @@
 <!-- home page after sign in -->
-<h1> social media home page</h1>
+<main id = "home-container">
+    <nav id = "page-navigation">
 
-<section id = "feed-post">
-    <h3>Post</h3>
-
-    <form action="/post/create" method="POST" id = "new-post-form">
-        <textarea name="content" cols="30" rows="7" placeholder="Type here...."></textarea>
-        <input type="submit" value ="Post">
-    </form>
-
-    <div id = "post-container">
-        <%for(let post of posts){%>
-            <p> Posted by <%=post.user.name%></p>
-            <p><%=post.content%></p>
+    </nav>
+    
+    <section id = "feed-post">
+        
+        <div id = "post-container">
             
-            <div class = "post-comments">
-                <%if(locals.user){%>
-                    <form action="/comments/create" method="POST">
-                        <input type="text" name = "content" placeholder="Add your comment...">
-                        <input type="hidden" name = "post"  value ="<%= post._id %>">
-                        <input type="submit" value = "Add Comment">
-                    </form>
+            <div id = "profile-details">
+                <i class="fas fa-user fa-3x"></i>
+                <p><%=locals.user.name%></p>
+            </div>
+            
+            <div id = "post-content">
+                <form action="/post/create" method="POST" id = "new-post-form">
+                    <textarea name="content" class = "input-style" cols="70" rows="7" placeholder="share your thought...." required ></textarea>
+                    <input type="submit" value ="Post" id="post-button">
+                </form>
+            </div>
+        </div>   
+        <div id = "all-posts">
+            <%for(let post of posts){%>
+                <p>Posted by <%=post.user.name%></p>
+
+                <%if(locals.user && post.user.id == locals.user.id){%>
+                    <small>
+                        <a href="/post/deletePost/<%= post.id %>">Delete Post</a>
+                    </small>
                 <%}%>
                 
-                <div id = "post-comments-list">
-                    <ul id="comment">
-                        <%for(let comment of post.comments){%>
-                            <p><%= comment.user.name %> commented</p>
-                            <p><%= comment.content %></p>
-                        <%}%>
-                    </ul>
+                <p><%=post.content%></p>
+                
+                <div class = "post-comments">
+                    <%if(locals.user){%>
+                        <form action="/comments/create" method="POST">
+                            <input type="text" name = "content" placeholder="Add your comment...">
+                            <input type="hidden" name = "post"  value ="<%= post._id %>">
+                            <input type="submit" value = "Add Comment">
+                        </form>
+                    <%}%>            
                 </div>
-
-
-            </div>
-        <%}%>
-    </div>
-
-
-</section>
+            <%}%>
+        </div>    
+    </section>
+    
+    <aside id = "news-section">
+    
+    </aside>
+</main>
+    

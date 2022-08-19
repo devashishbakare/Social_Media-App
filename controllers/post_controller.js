@@ -2,6 +2,9 @@
 //impoting Post db from models
 const Post = require("../models/post");
 
+//importing commnet module 
+const Comment = require("../models/comment");
+
 //Adding content from user
 module.exports.create = function(req, res){
 
@@ -15,24 +18,32 @@ module.exports.create = function(req, res){
 
 }
 
-// user like method call
-module.exports.like = function(req, res) {
-    return res.render("post",{
-        title : "user is posting photoes and vedios"
-    })
-};
+module.exports.deletePost = function(req, res){
 
-// user comment method call
-module.exports.comment = function(req, res) {
-    return res.render("post",{
-        title : "user is posting photoes and vedios"
-    })
-};
+Post.findById(req.params.id, function(err, post){
 
-// user share method call
-module.exports.share = function(req, res) {
-    return res.render("post",{
-        title : "user is posting photoes and vedios"
-    })
-};
+    if(err) {
+        console.log("Post not found:");
+    }else{
+        if(post.user == req.user.id){
+            console.log(post.id);
+            console.log(req.user.id);
+            post.remove();
 
+            Comment.deleteMany({post : req.params.id}, function(err){
+                if(err) {
+                    console.log("Unable to delte this comment");        
+                }else{
+                    return res.redirect("back");
+                }
+            });
+        }else {
+            return res.redirect("back");        
+        }
+    }
+
+    
+    
+
+});
+}
