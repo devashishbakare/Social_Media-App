@@ -22,38 +22,7 @@
         </div>   
         <div id = "all-posts">
             <%for(let post of posts){%>
-                <p>Posted by <%=post.user.name%></p>
-
-                <%if(locals.user && post.user.id == locals.user.id){%>
-                    <small>
-                        <a href="/post/deletePost/<%= post.id %>">Delete Post</a>
-                    </small>
-                <%}%>
-                
-                <p><%=post.content%></p>
-                
-                <div class = "post-comments">
-                    <%if(locals.user){%>
-                        <form action="/comments/create" method="POST">
-                            <input type="text" name = "content" placeholder="Add your comment...">
-                            <input type="hidden" name = "post"  value ="<%= post._id %>">
-                            <input type="submit" value = "Add Comment">
-                        </form>
-                    <%}%>
-                    <div id = "post-comments-list">
-                        <ul id="comment">
-                            <%for(let comment of post.comments){%>
-                                <%if(locals.user && locals.user.id == comment.user.id){%>
-                                    <small>
-                                        <a href="/comments/deleteComment/<%= comment.id %>">X</a>
-                                    </small>
-                                <%}%>
-                                <p><%= comment.user.name %> commented</p>
-                                <p><%= comment.content %></p>
-                            <%}%>
-                        </ul>
-                    </div>            
-                </div>
+                <%-include("_post", {post :post})-%>
             <%}%>
         </div>    
     </section>
