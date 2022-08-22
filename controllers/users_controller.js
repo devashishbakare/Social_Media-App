@@ -2,11 +2,38 @@
 const User = require("../models/user");
 
 module.exports.profile = function( req, res){
-    return res.render("user_profile", {
-        title : "profile page"
+
+    User.findById(req.params.id, function(err, user){
+        
+        if(err) {console.log("unable to find the user to show his profile")}
+
+        return res.render("user_profile", {
+            title : "profile page",
+            user_profile : user
+
+        });
+    });
+    
+}
+
+module.exports.editProfile = function(req, res){
+    return res.render("edit_Profile", {
+        title : "Edit Profile"
     });
 }
 
+module.exports.updateProfile = function(req, res){
+
+    if(req.user.id == req.params.id){
+        User.findByIdAndUpdate(req.params.id, req.body, function(err, user){
+            if(err) {console.log("unable to update the user")}
+            return res.redirect("back");
+        })
+    }else{
+        return res.status(401).send("Unathorized");
+    }
+
+}
 
 // User sign up 
 module.exports.signUp = function( req, res ){

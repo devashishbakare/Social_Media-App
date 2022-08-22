@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="/css/home.css">
 <!-- home page after sign in -->
 <main id = "home-container">
     <nav id = "page-navigation">
@@ -27,7 +28,14 @@
         </div>    
     </section>
     
-    <aside id = "news-section">
+    <aside id = "friend-section">
+
+        <h4>Friends</h4>
+        <%for(let friend of all_users){%>
+            <p>
+                <a href="/user/profile/<%= friend.id %>"><%=friend.name%></a>
+            </p>
+        <%}%>
     
     </aside>
 </main>

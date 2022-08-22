@@ -1,4 +1,14 @@
 <!-- Linking to css -->
 <link rel="stylesheet" href="/css/user_layout.css">
-<h1> Visiting user profile Page</h1>
-<p><%=user.name%></p>
+<h1>Profile Page</h1>
+
+<%if(user.id == user_profile.id){%> 
+    <p><%=user_profile.name%></p>
+    <p><%=user_profile.email%></p>
+    <a href="/user/editProfile">
+        <input type="button" value="Edit Profile">
+    </a>
+<%}else{%>
+    <p><%=user_profile.name%></p>
+    <p><%=user_profile.email%></p>
+<%}%>

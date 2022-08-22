@@ -2,6 +2,7 @@
 
 //importing Post db
 const Post = require("../models/post");
+const User = require("../models/user");
 
 
 module.exports.home = function(req, res){
@@ -17,10 +18,16 @@ module.exports.home = function(req, res){
         
         if(err){console.log("error in finding");}
 
-        return res.render("home", {
-            title : "User Posts",
-            posts : posts
-        });
+        User.find({}, function(err, users){
+            if(err){console.log("unable to fetch all the user");}
+            return res.render("home", {
+                title : "User Posts",
+                posts : posts,
+                all_users: users 
+            });
+        })
+
+        
     });
 
 }
