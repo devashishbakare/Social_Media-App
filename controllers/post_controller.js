@@ -6,44 +6,38 @@ const Post = require("../models/post");
 const Comment = require("../models/comment");
 
 //Adding content from user
-module.exports.create = function(req, res){
+module.exports.create = async function(req, res){
 
-    Post.create({
-        content : req.body.content,
-        user : req.user._id
-    }, function( err, post){
-        if(err){console.log("Not able to add content to post Db")}
+    try{
+        await Post.create({
+            content : req.body.content,
+            user : req.user._id
+        });
         return res.redirect("back");
-    });
 
+    }catch(err){
+        console.log("Unable to add Post", err);
+        return;
+    }   
 }
 
-module.exports.deletePost = function(req, res){
+module.exports.deletePost = async function(req, res){
 
-Post.findById(req.params.id, function(err, post){
+    try{
+        let post = await Post.findById(req.params.id);
 
-    if(err) {
-        console.log("Post not found:");
-    }else{
         if(post.user == req.user.id){
-            console.log(post.id);
-            console.log(req.user.id);
             post.remove();
 
-            Comment.deleteMany({post : req.params.id}, function(err){
-                if(err) {
-                    console.log("Unable to delte this comment");        
-                }else{
-                    return res.redirect("back");
-                }
-            });
+            await Comment.deleteMany({post : req.params.id});
+            return res.redirect("back");
+    
         }else {
             return res.redirect("back");        
         }
-    }
 
-    
-    
-
-});
+    }catch(err){
+        console.log("Error while finding post", err);
+        return;
+    }  
 }

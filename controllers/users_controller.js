@@ -1,19 +1,19 @@
 //exporting user form db 
 const User = require("../models/user");
 
-module.exports.profile = function( req, res){
-
-    User.findById(req.params.id, function(err, user){
+module.exports.profile = async function( req, res){
+    try{
+        let user = await User.findById(req.params.id);
         
-        if(err) {console.log("unable to find the user to show his profile")}
-
         return res.render("user_profile", {
             title : "profile page",
             user_profile : user
 
-        });
-    });
-    
+        });    
+    }catch(err){
+        console.log("Error while displaying profile", err);
+        return;
+    }  
 }
 
 module.exports.editProfile = function(req, res){
@@ -58,20 +58,17 @@ module.exports.signIn = function ( req, res ) {
 };
 
 // create user via sign in
-module.exports.create = function( req, res ) {
+module.exports.create = async function( req, res ) {
     
     // if password and confirm password are not same
     if(req.body.password != req.body.confirm_password) {
         console.log("Confirm password is wrong");
         return res.redirect("back");
     }
-    // checking email address are alaredy present or not
-    User.findOne({email: req.body.email}, function(err, user){
-        if (err) {
-            console.log("Error while searching email");
-            return;
-        }
-        //if email id not present then add to database
+
+    try{
+        // checking email address are alaredy present or not
+        let user = await User.findOne({email: req.body.email});
         if( !user ) {
             User.create({
                 email : req.body.email,
@@ -92,9 +89,11 @@ module.exports.create = function( req, res ) {
             console.log("Email id already taken");
             return res.redirect("back");
         }
-    })  
 
-
+    }catch(err){
+        console.log("Enable to find user", err);
+        return;
+    }
 }
 
 module.exports.createSession = function ( req, res ) {
@@ -102,7 +101,6 @@ module.exports.createSession = function ( req, res ) {
 }
 
 module.exports.deleteSession = function(req, res){
-    
     req.logout(function(err){
         if(err) console.log("Error while removing cookie");
         else return res.redirect("/");
@@ -110,6 +108,5 @@ module.exports.deleteSession = function(req, res){
 }
 
 module.exports.home = function(req, res){
-
     return res.redirect("/");
 }
