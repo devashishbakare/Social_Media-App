@@ -6,6 +6,8 @@
         </title>
         <!-- here your path is relative, you aleady assign assets, now you just need this href -->
         <!-- rendering the link tag for stying as per requirement -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+        <script src = "https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
         <link rel="stylesheet" href="/css/layout.css">
         <link rel="stylesheet" href="/css/header.css">
@@ -19,10 +21,7 @@
         <!-- included common header here -->
         <%- include("_header"); %>
 
-        <!-- adding flash massage to screen after logged in and logged out -->
-        <%if(flash.success && flash.success.length > 0){%>
-            <h3><%= flash.success%></h3>
-        <%}%>
+
 
         <!-- partial of a page render here -->
         <main id = "content-body">
@@ -35,5 +34,28 @@
         
         <!-- rendering the script tag for scripting as per requirement -->
         <%- script %>
+        
+        <script>
+            //for success
+            <% if(flash.success && flash.success.length > 0){ %>
+                    new Noty({
+                    theme : "relax",
+                    text: "<%= flash.success%>",
+                    type : "success",
+                    layout : "topRight",
+                    timeout : 1500                    
+                }).show();
+            <% } %>
+            //for error
+            <% if(flash.error && flash.error.length > 0){%>
+                    new Noty({
+                    theme : "relax",
+                    text: "<%= flash.success%>",
+                    type : "error",
+                    layout : "topRight",
+                    timeout : 1500                    
+                }).show();
+            <%}%>
+        </script>
     </body>
 </html>

@@ -25,7 +25,7 @@ module.exports.home = async function(req, res){
     });
 
   }catch(err){
-    console.log("Eroor while populating feils", err);
+    console.log("Eroor while populating feilds", err);
   }
 
     

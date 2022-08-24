@@ -7,21 +7,24 @@ const User = require("../models/user");
 
 // assigning userfeild as email and validating email and password
 passport.use(new LocalStrategy({
-    usernameField : "email"
-}, function(email, password, done){
+    
+    usernameField : "email",
+    passReqToCallback : true
+
+}, function(req, email, password, done){
     User.findOne({email : email}, function(err, user){
         if(err) {
-            console.log( "Error in finding email to database", err);
+            req.flash("error", "Invalid UserName/Password");
             return done(err);
         }
 
         if(!user || user.password != password){
-            console.log( "password inccorect");
+            req.flash("error", "Invalid UserName/Password");
             return done(null, false);
         }
 
         return done(null, user);
-    })
+    });
 }
 ));
 
@@ -29,7 +32,7 @@ passport.use(new LocalStrategy({
 // serializing : adding cookies with info-> session cookie
 
 passport.serializeUser(function(user, done){
-    done(null, user);
+    done(null, user.id);
 });
 
 // deSerialize : using this cookie to help browser to understand the user,
@@ -54,6 +57,7 @@ passport.checkAuthentication = function(req, res, next){
     return res.redirect("/user/sign-in");
 }
 
+
 passport.setAuthenticatedUser = function( req, res, next){
     
     //req.user is having user info which are in passport now
@@ -64,7 +68,5 @@ passport.setAuthenticatedUser = function( req, res, next){
     
     next();
 }
-
-
 
 module.exports = passport;
