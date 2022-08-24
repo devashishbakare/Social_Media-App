@@ -97,14 +97,20 @@ module.exports.create = async function( req, res ) {
 }
 
 module.exports.createSession = function ( req, res ) {
+    req.flash("success", "Logged in successfully");
     return res.redirect("/");
 }
 
 module.exports.deleteSession = function(req, res){
+
+   
     req.logout(function(err){
-        if(err) console.log("Error while removing cookie");
-        else return res.redirect("/");
-    });
+        if(err){
+            console.log("Error while removing cookie");
+        }         
+    });   
+    req.flash("success", "Logged out successfully");
+    return res.redirect("/");
 }
 
 module.exports.home = function(req, res){

@@ -19,6 +19,11 @@
         <!-- included common header here -->
         <%- include("_header"); %>
 
+        <!-- adding flash massage to screen after logged in and logged out -->
+        <%if(flash.success && flash.success.length > 0){%>
+            <h3><%= flash.success%></h3>
+        <%}%>
+
         <!-- partial of a page render here -->
         <main id = "content-body">
             <%- body %>
