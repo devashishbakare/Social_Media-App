@@ -22,9 +22,11 @@
             </div>
         </div>   
         <div id = "all-posts">
-            <%for(let post of posts){%>
-                <%-include("_post", {post :post})-%>
-            <%}%>
+            <ul>
+                <%for(let post of posts){%>
+                    <%-include("_post", {post :post})-%>
+                <%}%>
+            </ul>
         </div>    
     </section>
     
@@ -39,4 +41,5 @@
     
     </aside>
 </main>
-    
+<script src="/js/home_post_comments.js" ></script>
+<script src="/js/home_post.js"></script>

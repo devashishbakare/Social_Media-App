@@ -6,13 +6,27 @@ module.exports.create = async function(req, res){
         let post = await Post.findById(req.body.post);
         if(post){            
             try{
-                const comment = await Comment.create({
+                let comment = await Comment.create({
                     content : req.body.content,
                     post : req.body.post,
                     user : req.user._id
                 });   
                 post.comments.push(comment);
                 post.save();
+
+                if (req.xhr){
+
+                  //comment = await comment.populate('user', 'name').execPopulate();
+
+                    console.log("comment", comment);
+                    return res.status(200).json({
+                        data: {
+                            comment: comment
+                        },
+                        message: "comment has been added!"
+                    });
+                }
+            
                 req.flash("success", "Comment has been posted");
                 return res.redirect("back");
 
@@ -40,6 +54,17 @@ module.exports.deleteComment = async function(req, res){
             comment.remove();
 
             await Post.findByIdAndUpdate(postId, { $pull : {comments : req.params.id}});
+
+            // send the comment id which was deleted back to the views
+            if (req.xhr){
+                return res.status(200).json({
+                    data: {
+                        comment_id: req.params.id
+                    },
+                    message: "comment has been deleted!"
+                });
+            }
+
             req.flash("success", "comment deleted successfully");
             return res.redirect("back");
             
