@@ -11,11 +11,18 @@
                 url: "/post/create",
                 data: newPostForm.serialize(),
                 success : function(data){
-                    
                     let newPost = createPostDOM(data.data.post);
                     $("#all-posts>ul").prepend(newPost);
                     deletePost($(' .delete-post-button', newPost));
-
+                    
+                    new Noty({
+                        theme: 'relax',
+                        text: "Post published!",
+                        type: 'success',
+                        layout: 'topRight',
+                        timeout: 1500
+                        
+                    }).show();
                 },
                 error: function(error){
                     console.log(error.responseText);
@@ -23,6 +30,7 @@
             })
 
         });
+    }
 
         let createPostDOM =  function(post){
                 return $(`<li id = "post-${post._id}">
@@ -52,7 +60,7 @@
             </li>`);
         }
 
-    }
+    
     let deletePost = function(deleteLink){
         
         $(deleteLink).click(function(e){

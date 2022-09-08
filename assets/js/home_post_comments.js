@@ -30,6 +30,15 @@ class PostComments{
                     $(`#post-comments-${postId}`).prepend(newComment);
                     pSelf.deleteComment($(' .delete-comment-button', newComment));
 
+                    new Noty({
+                        theme: 'relax',
+                        text: "Comment published!",
+                        type: 'success',
+                        layout: 'topRight',
+                        timeout: 1500
+                        
+                    }).show();
+
                 },
                 error: function(error){
                     console.log(error.responseText);
@@ -40,13 +49,14 @@ class PostComments{
 
     newCommentDom(comment){
         return $(`<li id="comment-${ comment._id }">
-                    
+                  <p>  
                     <small>
                         <a class = "delete-comment-button" href="/comments/deleteComment/${comment._id}">X</a>
                     </small>
                     
                     <p>${comment.user.name} commenteddd</p>
                     <p>${comment.content}</p>
+                </p>
     </li>`);
     }
 

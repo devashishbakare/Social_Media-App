@@ -1,5 +1,8 @@
 //exporting user form db 
 const User = require("../models/user");
+const fs = require('fs');
+const path = require('path');
+
 
 module.exports.profile = async function( req, res){
     try{
@@ -22,16 +25,32 @@ module.exports.editProfile = function(req, res){
     });
 }
 
-module.exports.updateProfile = function(req, res){
+module.exports.updateProfile = async function(req, res){
 
     if(req.user.id == req.params.id){
-        User.findByIdAndUpdate(req.params.id, req.body, function(err, user){
-            if(err) {
-               req.flash("error", "Error in updating profile");
-            }
-            req.flash("success", "Profile has been updated");
+
+        try{
+            let user = await User.findById(req.params.id);
+            User.uploadedAvatar(req, res, function(err){
+                if(err) { console.log("**Multer Error**", err) }
+                //console.log(req.file);
+                user.name = req.body.name;
+                user.email = req.body.email;
+                
+                if(req.file){
+                    if(user.avatar){
+                        fs.unlinkSync(path.join(__dirname, '..', user.avatar));
+                    }
+                    
+                    user.avatar = User.avatarPath + '/' + req.file.filename;
+                }
+                user.save();
+                return res.redirect("back");
+            });
+        }catch(err){
+            console.log("uesr not authrized", err);
             return res.redirect("back");
-        })
+        }
     }else{
         return res.status(401).send("Unathorized");
     }

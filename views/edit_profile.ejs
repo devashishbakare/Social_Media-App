@@ -1,6 +1,8 @@
+<img src="<%= user.avatar%>" alt="<%=user.name%>", width = "100">
 
-<form action="/user/updateProfile/<%= user.id %>" method="POST">
+<form action="/user/updateProfile/<%= user.id %>" method="POST" enctype="multipart/form-data">
     <input type="text" name="name" value ="<%= user.name%>" required>
     <input type="email" name="email" value ="<%= user.email%>" required>
+    <input type="file" name="avatar" placeholder="upload profile photo">
     <input type="submit" value="Update Details">
 </form>

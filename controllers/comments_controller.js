@@ -3,7 +3,7 @@ const Post = require("../models/post");
 
 module.exports.create = async function(req, res){
     try{
-        let post = await Post.findById(req.body.post);
+        let post = await Post.findById(req.body.post).populate("user", "name email");
         if(post){            
             try{
                 let comment = await Comment.create({
@@ -14,9 +14,8 @@ module.exports.create = async function(req, res){
                 post.comments.push(comment);
                 post.save();
 
+                comment = await comment.populate('user', 'name email');
                 if (req.xhr){
-
-                  //comment = await comment.populate('user', 'name').execPopulate();
 
                     console.log("comment", comment);
                     return res.status(200).json({

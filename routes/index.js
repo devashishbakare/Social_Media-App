@@ -21,5 +21,9 @@ router.use("/post", require("./post"));
 
 //routing request of comments to comments routes
 router.use("/comments", require("./comment"));
+
+// rounting request of api to the api folder
+router.use('/api', require('./api'));
+
 // we have to export to access outside
 module.exports = router;

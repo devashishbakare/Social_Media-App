@@ -27,6 +27,7 @@ const User = require("./models/user");
 const session = require("express-session");
 const passport = require("passport");
 const passportLocal = require("./config/passport-local-strategy");
+const passportJWT = require("./config/possport-jwt-strategy");
 const MongoStore = require("connect-mongo");
 const sassMiddleware = require("node-sass-middleware");
 const flash = require("connect-flash");
@@ -44,6 +45,9 @@ app.use(sassMiddleware({
 
 //assets use
 app.use(express.static("./assets"));
+
+//upload path use
+app.use('/uploads', express.static(__dirname + '/uploads'));
 
 //use by app
 app.use(expressLayouts);

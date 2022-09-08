@@ -17,7 +17,7 @@ module.exports.create = async function(req, res){
         });
         console.log(post);
 
-        //post = await post.populate('user', 'name').execPopulate();
+        post = await post.populate('user', 'name _id email');
 
         console.log("post", post);
         if (req.xhr){
