@@ -3,7 +3,7 @@ const googleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const crypto = require('crypto');
 const User = require('../models/user');
 
-// using goole strategy to sign in
+// using google strategy to sign in
 passport.use(new googleStrategy({
             clientID : "1070969104763-s6vgpvrt9fhv379qh16s1pm4igl6qsr9.apps.googleusercontent.com",
             clientSecret : "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",
