@@ -15,7 +15,7 @@ exports.newComment = (comment) => {
             console.log("error in sending mail", err);
             return;
         }
-        console.log('massage has been sent ', info);
+        //console.log('massage has been sent ', info);
         return;
     });
 }
