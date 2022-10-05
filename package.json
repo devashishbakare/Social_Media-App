@@ -1,7 +1,7 @@
 {
   "name": "codeil",
   "version": "1.0.0",
-  "description": "Socail Media web application",
+  "description": "Social Media web application",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
@@ -27,9 +27,11 @@
     "multer": "^1.4.5-lts.1",
     "node-sass-middleware": "^1.0.1",
     "nodemailer": "^6.7.8",
+    "nodemon": "^2.0.20",
     "passport": "^0.6.0",
     "passport-google-oauth": "^2.0.0",
     "passport-jwt": "^4.0.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "redis": "^4.3.1"
   }
 }
