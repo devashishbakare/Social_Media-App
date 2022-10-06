@@ -25,5 +25,8 @@ router.use("/comments", require("./comment"));
 // rounting request of api to the api folder
 router.use('/api', require('./api'));
 
+//routing request for like to its router
+router.use('/likes', require('./likes'));
+
 // we have to export to access outside
 module.exports = router;
