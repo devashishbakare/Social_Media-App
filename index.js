@@ -4,7 +4,7 @@ const express = require("express");
 // imported cookies after install
 const cookieParser = require("cookie-parser"); 
 
-// Firring express and set up a port
+// starting express and set up a port
 const app = express();
 const port = 8000;
 
@@ -14,7 +14,7 @@ app.use(express.urlencoded());
 // use cokkieParser to parse the cookies
 app.use(cookieParser());
 
-//import exress-ejs-layouts
+//import exress-ejs-layouts for using partial and layout
 const expressLayouts = require("express-ejs-layouts");
 
 // Importing db
@@ -53,7 +53,7 @@ app.use('/uploads', express.static(__dirname + '/uploads'));
 //use by app
 app.use(expressLayouts);
 
-// Telling layouts to use style and script at right location
+//layout script and style extractor 
 app.set("layout extractStyles", true);
 app.set("layout extractScripts", true);
 

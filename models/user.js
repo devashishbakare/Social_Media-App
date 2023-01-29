@@ -23,7 +23,13 @@ const userSchema = new mongoose.Schema({
     },
     avatar : {
         type : String
-    }
+    },
+    friendships: [
+        { 
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Friendship' 
+        }
+    ] 
 }, {//timestanp for created and updated info
     timestamps : true
 });
@@ -42,7 +48,6 @@ let storage = multer.diskStorage({
 
   userSchema.statics.uploadedAvatar = multer({storage: storage}).single('avatar');
   userSchema.statics.avatarPath = AVATAR_PATH;
-
 
 
 //assigning name to schema
