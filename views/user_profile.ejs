@@ -1,6 +1,5 @@
-<!-- Linking to css -->
-<link rel="stylesheet" href="/css/user_layout.css">
-<h1>Profile Page</h1>
+<link rel="stylesheet" href="/css/user_layout.css"> 
+<!-- <h1>Profile Page</h1>
 
 <%if(user.id == user_profile.id){%> 
     <p><%=user_profile.name%></p>
@@ -11,4 +10,99 @@
 <%}else{%>
     <p><%=user_profile.name%></p>
     <p><%=user_profile.email%></p>
-<%}%>
+<%}%> --> 
+
+    <div id = "display-profile-container">
+        
+        <div id = "display-profile">
+            
+            <div id = "profile-heading-info">
+                <div id = "profile-image-fit">
+                    <span id = "profile-page-user-photo">
+                        <%if(!user_profile.avatar){%>
+                            <img src="/images/userImg.png" id = "profile-photo" alt="profile-photo">
+                        <%}else{%>
+                            <img src="<%=user_profile.avatar%>" id = "profile-photo" alt="profile-photo">
+                        <%}%>
+                    </span>
+                </div>
+                
+                <div id = "profile-heading-text">
+                    <p class = "profile-name spacing-between"> <%=user_profile.name%></p>
+                    <p class = "profile-post-count spacing-between">Post : 2</p>
+                    <p class = "profile-post-count spacing-between">Joined 14 Feb</p>
+                    <div id="bio-section" class = "spacing-between">
+                        <p><%= user_profile.bio%> </p>
+                    </div>
+                    <%if(user_profile.id == user.id){%>
+                        <a href="/user/editProfile">
+                            <input type="button" value="Edit Profile" id = "edit-button" calss = "spacing-between">
+                        </a>
+                    <%}%>
+                  
+                </div>
+
+            </div>
+           
+
+          
+        </div>
+    
+        <div id = "display-post">
+           
+            <div id = "post-container">
+                <div id = "user-name-heading">
+                    <div id = "post-image-container">
+                        <span id = "post-heading-profile-img">
+                            <%if(!user_profile.avatar){%>
+                                <img src="/images/userImg.png" id = "post-user-profile" alt="profile-page">
+                                <%}else{%>
+                                    <img src="<%=user_profile.avatar%>" id = "post-user-profile" alt="profile-page">
+                            <%}%>
+                        </span>
+                    </div>
+                    
+                    <p id = "post-user-name"><%=user_profile.name%></p>
+                </div>
+                <div id = "post-content">
+                    <p>Completed 2 year in conginzant, Now its time to learn and fly, Celebration at sudhir hotel today, will catch up there, peace !!</p>
+                </div>
+                <div id = "like-comment-section">
+                    <button class = "post-content-button">128 Like</button>
+                    <div id = "comment-div">
+                        <input type="text" id = "comment-input">
+                        <button class = "post-content-button">Add comment</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div id = "post-container">
+                
+                <div id = "user-name-heading">
+                    <%if(!user_profile.avatar){%>
+                    <img src="/images/userImg.png" id = "post-user-profile" alt="profile-page">
+                    <%}else{%>
+                        <img src="<%=user_profile.avatar%>" id = "post-user-profile" alt="profile-page">
+                    <%}%>
+                    
+                    <p id = "post-user-name"><%=user_profile.name%></p>
+                </div>
+                <div id = "post-content">
+                    <p>life is too short, let's enjoy and fuck the moment !!</p>
+                </div>
+                <div id = "like-comment-section">
+                    <button class = "post-content-button">128 Like</button>
+                    <div id = "comment-div">
+                        <input type="text" id = "comment-input">
+                        <button class = "post-content-button">Add comment</button>
+                    </div>
+                </div>
+            </div> -->
+
+        </div>
+    </div>
+
+
+
+
+

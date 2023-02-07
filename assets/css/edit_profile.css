@@ -1,0 +1,111 @@
+body{
+    font-family: 'Open Sans', sans-serif; 
+}
+
+#edit-container{
+    height : 90vh;
+    width : 50%;
+    border : 1px solid black;
+    margin-left : 25%;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+#image-edit{
+    
+    height : 30%;
+    width : 100%;
+    /* border : 1px solid black; */
+    display : flex;
+    flex-direction : row;
+    justify-items : center;
+    align-items: center;
+    margin-top : 5%;
+}
+
+#file-upload{
+    margin-left : 5%;
+}
+#user-profile-photo{
+    height : 120%;
+    width : 40%;
+    border : 1px solid green;
+    border-radius: 50%;
+    margin-left: 25%;
+}
+
+#update-info{
+    /* border : 1px solid black; */
+    display : flex;
+    flex-direction: column;
+    justify-items : center;
+    align-items : center;
+    margin-top : 3%;
+}
+
+#center-info{
+    height: 100%;
+    width : 70%;
+    /* border : 3px solid red; */
+    display : flex;
+    flex-direction : column;
+    text-align: left;
+
+}
+
+.align-text{
+    display : flex;
+    flex-direction: row;
+    /* border : 1px solid black; */
+    margin : 20px;
+    justify-items : center;
+    align-items: center;
+}
+
+.label-text{
+   margin-right : 5%;
+}
+
+#profile-bio{
+    width : 250px;
+    margin-left : 5%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    resize: none;
+}
+
+.inputtext{
+    height: 20px;
+    width : 250px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+#up-button{
+    /* border : 1px solid blue; */
+    text-align: center;
+    margin-right : 15%;
+    margin-top : 5%;
+}
+
+#update-button{
+  align-items: center;
+  background-color: #0A66C2;
+  border: 0;
+  border-radius: 100px;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 300;
+  max-width: 480px;
+  min-height: 40px;
+  min-width: 0px;
+  overflow: hidden;
+  padding: 0px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+  transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+}

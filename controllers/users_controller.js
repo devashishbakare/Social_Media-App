@@ -34,9 +34,11 @@ module.exports.updateProfile = async function(req, res){
             User.uploadedAvatar(req, res, function(err){
                 if(err) { console.log("**Multer Error**", err) }
                 //console.log(req.file);
+                console.log(req.body);
                 user.name = req.body.name;
                 user.email = req.body.email;
-                
+                user.bio = req.body.bio;
+            
                 if(req.file){
                     if(user.avatar){
                         fs.unlinkSync(path.join(__dirname, '..', user.avatar));

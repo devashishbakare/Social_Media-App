@@ -24,6 +24,9 @@ const userSchema = new mongoose.Schema({
     avatar : {
         type : String
     },
+    bio : {
+        type : String
+    },
     friendships: [
         { 
             type: mongoose.Schema.Types.ObjectId,

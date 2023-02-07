@@ -1,8 +1,61 @@
-<img src="<%= user.avatar%>" alt="<%=user.name%>", width = "100">
+<!-- <img src="<%= user.avatar%>" alt="<%=user.name%>", width = "100">
 
 <form action="/user/updateProfile/<%= user.id %>" method="POST" enctype="multipart/form-data">
     <input type="text" name="name" value ="<%= user.name%>" required>
     <input type="email" name="email" value ="<%= user.email%>" required>
     <input type="file" name="avatar" placeholder="upload profile photo">
     <input type="submit" value="Update Details">
-</form>
+</form> -->
+
+
+ <link rel="stylesheet" href="/css/edit_profile.css">
+
+    
+<div id = "edit-container">
+    <form action="/user/updateProfile/<%= user.id %>" method="POST" enctype="multipart/form-data">
+
+        <div id = "image-edit">
+            <%if(!user.avatar){%>
+                <img src="/images/userImg.png" id = "user-profile-photo" alt="profile-photo">
+            <%}else{%>
+                <img src="<%= user.avatar%>" alt="profile-photo" id = "user-profile-photo">
+            <%}%>
+            
+            <input type="file" name="avatar" id = "file-upload">
+           
+        </div>
+
+        <div id = "update-info">
+
+            <div id = "center-info">
+                <div class = "align-text">
+                    <span class = "label-text">
+                        <label for="">Name:</label>
+                    </span>
+                    <input type="text" class = "inputtext" name = "name" value = "<%= user.name%>">
+                </div>
+                
+
+                <div class = "align-text">
+                    <span class = "label-text">
+                        <label for="">Email:</label>
+                    </span>
+                    <input type="email" class = "inputtext" name = "email" value = "<%= user.email%>">
+                </div>
+                
+
+                <div class = "align-text">
+                    <span class = "label-text">
+                        <label for="" >Bio: </label>
+                    </span>
+                    <textarea id="profile-bio" name ="bio" cols="20" rows="5"><%= user.bio%></textarea>
+                </div>
+
+                <div id ="up-button">
+                    <button id = "update-button">Update Profile</button>
+                </div>
+            </div>
+            
+        </div>
+    </form>
+</div>
