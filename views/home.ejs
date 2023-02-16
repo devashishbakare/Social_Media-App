@@ -1,54 +1,69 @@
 <link rel="stylesheet" href="/css/home.css">
-<!-- home page after sign in -->
-<main id = "home-container">
-    <nav id = "page-navigation">
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+<main id = "home-container">
+    <nav id = "home-nav-container">
+        <div id= "nav-button-container">
+            
+            <div class = "nav-button">
+                <a href="">
+                    <div class = "nav-button-div">
+                        <div class = "nav-icon">
+                            <i class="fas fa-light fa-feather-pointed fa-customize fa-2x"></i>
+                        </div>
+                        <p class="nav-text">Share Post</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class = "nav-button">
+                <a href="">
+                    <div class = "nav-button-div">
+                        <div class = "nav-icon">
+                            <i class="fas fa-solid fa-house fa-customize fa-2x"></i>
+                        </div>
+                        <p class="nav-text">Home</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class = "nav-button">
+                <a href="">
+                    <div class = "nav-button-div">
+                        <div class = "nav-icon">
+                            <i class="fas fa-duotone fa-user fa-customize fa-2x"></i>
+                        </div>
+                        <p class="nav-text">Profile</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class = "nav-button">
+                <a href="">
+                    <div class = "nav-button-div">
+                        <div class = "nav-icon">
+                            
+                            <i class="fas fa-thin fa-message fa-customize"></i>
+                        </div>
+                        <p class="nav-text">Message</p>
+                    </div>
+                </a>
+            </div>
+                     
+        </div>
+        <form action="/post/create" method="POST" id = "new-post-form">
+            <textarea name="content" class = "input-style" cols="25" rows="7" placeholder="share your thought...." required ></textarea>
+            <input type="submit" value ="Post" id="post-button">
+        </form>
     </nav>
-    
-    <section id = "feed-post">
-        
-        <div id = "post-container">
-            
-            <div id = "profile-details">
-                <i class="fas fa-user fa-3x"></i>
-                <p><%=locals.user.name%></p>
-            </div>
-            
-            <div id = "post-content">
-                <form action="/post/create" method="POST" id = "new-post-form">
-                    <textarea name="content" class = "input-style" cols="70" rows="7" placeholder="share your thought...." required ></textarea>
-                    <input type="submit" value ="Post" id="post-button">
-                </form>
-            </div>
-        </div>   
-        <div id = "all-posts">
-            <ul>
-                <%for(let post of posts){%>
-                    <%-include("_post", {post :post})-%>
-                <%}%>
-            </ul>
-        </div>    
+
+    <section id = "home-post-container">
+        <%for(let post of posts){%>
+            <%-include("_post", {post :post})-%>
+        <%}%>
     </section>
     
-    <aside id = "friend-section">
-
-        <h4>Friends</h4>
-        <%for(let friend of all_users){%>
-            <p>
-                <a href="/user/profile/<%= friend.id %>"><%=friend.name%></a>
-            </p>
-        <%}%>
-    
-    </aside>
+    <aside id = "home-aside-container"></aside>
 </main>
-<script src="/js/home_post_comments.js" ></script>
-<script src="/js/home_post.js"></script>
 
-<!-- import the script file for toggle likes, also run it over for the already present posts and comments on the page -->
-<script src="js/toggle_likes.js"></script>
-<script>
-    $('.toggle-like-button').each(function(){
-        let self = this;
-        let toggleLike = new ToggleLike(self);
-    });
-</script>
+<script src="/js/home_post.js"></script>

@@ -1,0 +1,52 @@
+.page-content {
+    position: relative;
+  }
+  
+  #text-box-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+  }
+  
+  .text-box-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  #text-box {
+    width: 100%;
+    min-height: 100px;
+    max-height: 300px;
+    resize: vertical;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    margin-bottom: 10px;
+  }
+  
+  #submit-button, #cancel-button {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    background-color: blue;
+    color: white;
+    cursor: pointer;
+  }
+  
+  #submit-button:hover, #cancel-button:hover {
+    background-color: darkblue;
+  }
+  
+  .page-content.blur {
+    filter: blur(5px);
+  }
+  

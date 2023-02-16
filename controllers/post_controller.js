@@ -14,19 +14,19 @@ module.exports.create = async function(req, res){
     try{
         let post = await Post.create({
             content : req.body.content,
-            user : req.user._id
+            user : req.user._id,
         });
         console.log(post);
 
-        post = await post.populate('user', 'name _id email');
-
+        post = await (await post.populate('user', 'name _id email avatar'));
+        let image = "/images/userImg.png"
         console.log("post", post);
         if (req.xhr){
             
             return res.status(200).json({
                 data: {
                     post:  post,
-                    
+                    image : image
                 },
                 message: "Post created!"
             });

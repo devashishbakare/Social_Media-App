@@ -1,37 +1,35 @@
-<li id = "post-<%= post._id%>">
-        <p>Posted by <%=post.user.name%></p>
-        <%if(locals.user && post.user.id == locals.user.id){%>
-            <small>
-                <a href="/post/deletePost/<%= post._id %>" class = "delete-post-button">Delete Post</a>
-            </small>
-        <%}%>
-        <p><%=post.content%></p>
-         <!-- display the likes of this post, if the user is logged in, then show the link to toggle likes, else, just show the count -->
-         <br>
-        <small>
-            <% if (locals.user){ %>
-                <a class="toggle-like-button" data-likes="<%= post.likes.length %>" href="/likes/toggle/?id=<%=post._id%>&type=Post">
-                        <%= post.likes.length %> Likes
-                </a>
-            <% }else{ %>
-                <%= post.likes.length %> Likes
-            <% } %>
-        </small>
-        <div class = "post-comments">
-            <%if(locals.user){%>
-                <form action="/comments/create" method="POST" id="post-<%= post._id %>-comments-form">
-                    <input type="text" name = "content" placeholder="Add your comment...">
-                    <input type="hidden" name = "post"  value ="<%= post._id %>">
-                    <input type="submit" value = "Add Comment">
-                </form>
-            <%}%>
-            <div id = "post-comments-list">
-                <ul id="post-comments-<%= post._id %>">
-                    <%for(let comment of post.comments){%>
-                        <%-include("_comment", {comment : comment})-%>                                         
+<link rel="stylesheet" href="/css/_post.css">
+<span id = "post-<%=post._id%>">
+    <div id = "post-container">
+        <div id = "user-name-heading">
+            <div id = "post-image-container">
+                <span id = "post-heading-profile-img">
+                    <%if(!post.user.avatar){%>
+                        <img src="/images/userImg.png" id = "post-user-profile" alt="profile-page">
+                        <%}else{%>
+                            <img src="<%=post.user.avatar%>" id = "post-user-profile" alt="profile-page">
                     <%}%>
-                </ul>
-            </div>           
+                </span>
+            </div>
+            
+            <p id = "post-user-name"><%=post.user.name%></p>
+        
         </div>
-
-</li>
+        <div id = "post-content">
+            <p><%= post.content%></p>
+        </div>
+        <div id = "like-comment-section">
+            <button class = "post-content-button">128 Like</button>
+            <div id = "comment-div">
+                <input type="text" id = "comment-input">
+                <button class = "post-content-button">Add comment</button>
+            </div>
+            <a href="">
+                Show Comments
+            </a>
+            <a href="/post/deletePost/<%= post._id %>" class = "delete-post-button">
+                Delete Post
+            </a>
+        </div>
+    </div>
+</span>
