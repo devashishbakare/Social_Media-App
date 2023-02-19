@@ -1,92 +1,41 @@
-class PostComments{
+{
+    //display comments
+    let displayComments = function(){
+        console.log("in display comment function");
+        $("#show-post-comment").click(function(event){
+            console.log("in display comment function");
+            event.preventDefault();
+                $.ajax({
+                    type : "GET",
+                    url : $("#show-post-comment").prop("href"),
+                    success : function(data){
+                        let comment = data.data.comments;
+                        for(let i = 0; i < comment.length; i++){
+                            $("#user-only-comment").append(getCommentInHTML(comment[i]));
+                        }
+                    }, error : function(err){
+                        console.log("ajax success failed!", err);
+                    }
+                });
+        });
+    }
+
+    let getCommentInHTML = function(postComment){
+        console.log("call from creation comement and send!");
+        console.log(postComment.content);
+        
+        return $(`<div id = "onPost-comment-container">
+                    <div id = "commented-user-name" class = "box-margin">
+                    <p id ="comment-user-name">${postComment.user.name}</p>
+                    </div>
+                    <div id = "onPost-comment-content" class = "box-margin">
+                    <p>${postComment.content}</p>
+                    </div>
+                </div>`);
+    }
+
+
+    displayComments();
     
-    constructor(postId){
-        this.postId = postId;
-        this.postContainer = $(`#post-${postId}`);
-        this.newCommentForm = $(`#post-${postId}-comments-form`);
-
-        this.createComment(postId);
-
-        let self = this;
-        // call for all the existing comments
-        $(' .delete-comment-button', this.postContainer).each(function(){
-            self.deleteComment($(this));
-        });
-    }
-
-    createComment(postId){
-        let pSelf = this;
-        this.newCommentForm.submit(function(e){
-            e.preventDefault();
-            let self = this;
-
-            $.ajax({
-                type: "post",
-                url: "/comments/create",
-                data: $(self).serialize(),
-                success: function(data){
-                    console.log("data", data);
-                    let newComment = pSelf.newCommentDom(data.data.comment);
-                    $(`#post-comments-${postId}`).prepend(newComment);
-                    pSelf.deleteComment($(' .delete-comment-button', newComment));
-
-                    // Enable the functionality of the toggle like button on the new comment
-                    new ToggleLike($(' .toggle-like-button', newComment));
-
-                    new Noty({
-                        theme: 'relax',
-                        text: "Comment published!",
-                        type: 'success',
-                        layout: 'topRight',
-                        timeout: 1500
-                        
-                    }).show();
-
-                },
-                error: function(error){
-                    console.log(error.responseText);
-                }
-            });
-        });
-    }
-
-    newCommentDom(comment){
-        return $(`<li id="comment-${ comment._id }">
-                  <p>  
-                    <small>
-                        <a class = "delete-comment-button" href="/comments/deleteComment/${comment._id}">X</a>
-                    </small>
-                    
-                    <p>${comment.user.name} commenteddd</p>
-                    <p>${comment.content}</p>
-                    <small>
-                            
-                        <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?id=${comment._id}&type=Comment">
-                            0 Likes
-                        </a>
-                
-                    </small>
-                </p>
-    </li>`);
-    }
-
-    deleteComment(deleteLink){
-        $(deleteLink).click(function(e){
-            e.preventDefault();
-
-            $.ajax({
-                type: 'get',
-                url: $(deleteLink).prop('href'),
-                success: function(data){
-                    $(`#comment-${data.data.comment_id}`).remove();
-
-                },
-                error: function(error){
-                    console.log(error.responseText);
-                }
-            });
-
-        });
-    }
-
 }
+

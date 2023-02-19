@@ -7,8 +7,11 @@ const Like = require("../models/like");
 
 
 module.exports.create = async function(req, res){
+    console.log("req comming "+req.body);
+    console.log(req.body.content);
+    console.log(req.body.post);
     try{
-        let post = await Post.findById(req.body.post).populate("user", "name email");
+        let post = await Post.findById(req.body.post);
         if(post){            
             try{
                 let comment = await Comment.create({
@@ -16,9 +19,10 @@ module.exports.create = async function(req, res){
                     post : req.body.post,
                     user : req.user._id
                 });   
+                console.log("comment created "+comment);
                 post.comments.push(comment);
                 post.save();
-
+                
                 comment = await comment.populate('user', 'name email');
                 //commentMailer.newComment(comment);
                 let job = queue.create('emails', comment).save(function(err){
@@ -32,7 +36,7 @@ module.exports.create = async function(req, res){
 
                 if (req.xhr){
 
-                    console.log("comment", comment);
+                    console.log("sending this to via xhr", comment);
                     return res.status(200).json({
                         data: {
                             comment: comment
@@ -59,6 +63,8 @@ module.exports.create = async function(req, res){
 
 
 module.exports.deleteComment = async function(req, res){
+    
+    
     
     try{
         let comment = await Comment.findById(req.params.id);
@@ -95,5 +101,47 @@ module.exports.deleteComment = async function(req, res){
         return;
     }
     
+}
+
+module.exports.displayComments = async function(req, res){
+    console.log(req.params.id);
+
+    try{
+        let post = await Post.findById(req.params.id);
+        
+        if(post){   
+            if(req.xhr){
+                let listOfComments = post.comments;
+                let jsonData = [];
+                for(let comment = 0; comment < listOfComments.length; comment++){
+                    console.log(listOfComments[comment]+" comment");
+                    let populatedCommnet = await Comment.findById(listOfComments[comment]).populate("content user createdAt");
+                    // console.log(populatedCommnet.content);
+                    jsonData.push(populatedCommnet);
+                }
+                jsonData.sort(function(a, b){
+                    return b.createdAt-a.createdAt;
+                });
+                console.log(jsonData);
+                return res.status(200).json({
+                    data : {
+                        comments : jsonData
+                    }, 
+                    massage : "Displayed!!"
+                });
+            }else{
+                console.log("No XHR request is made!");
+                return res.redirect("back");
+            }
+        }else{
+            console.log("post not found");
+        }
+    }catch(err){
+        console.log("Not able to display comments"+err);
+        return;
+    }
     
+    
+    
+
 }

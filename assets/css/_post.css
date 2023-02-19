@@ -44,7 +44,7 @@ body{
   #like-comment-section{
     height: 50px;
     width : 95%;
-    /* border : 1px solid black; */
+    /* border-bottom : 1px solid black; */
     display : flex;
     flex-direction: row;
     justify-items: center;
@@ -98,15 +98,13 @@ body{
   }
   
   #comment-input{
-    margin-right : 10px;
-  }
-  
-  #comment-input{
-    width : 70%;
+    height : 190%;
+    width : 290px;
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 4px;
     outline : none;
+    margin-right : 10px;
   }
   
   #comment-input:focus {
@@ -133,4 +131,29 @@ body{
   }
   .delete-post-button{
     margin-left : 3px;
+  }
+
+  .comment-form{
+    display : flex;
+    flex-direction: row;
+  }
+
+  .add-comment-button{
+    height :190%;
+    width : 120px;
+  }
+  /* Single comment */
+  #onPost-comment-container{
+    height : auto;
+    width : 95%;
+    /* border : 1px solid black; */
+    margin : 1%;
+   
+  }
+  .box-margin{
+    margin-left : 2%;
+  }
+  
+  #comment-user-name{
+    font-weight: 550;
   }
