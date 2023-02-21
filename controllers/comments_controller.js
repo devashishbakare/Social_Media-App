@@ -7,9 +7,8 @@ const Like = require("../models/like");
 
 
 module.exports.create = async function(req, res){
-    console.log("req comming "+req.body);
-    console.log(req.body.content);
-    console.log(req.body.post);
+    console.log("comment content "+req.body.content);
+    console.log("post id "+req.body.post);
     try{
         let post = await Post.findById(req.body.post);
         if(post){            
@@ -19,32 +18,31 @@ module.exports.create = async function(req, res){
                     post : req.body.post,
                     user : req.user._id
                 });   
-                console.log("comment created "+comment);
+                // console.log("comment created "+comment);
                 post.comments.push(comment);
                 post.save();
                 
                 comment = await comment.populate('user', 'name email');
                 //commentMailer.newComment(comment);
-                let job = queue.create('emails', comment).save(function(err){
-                    if (err) {
-                        console.log(err, "error in creating queue");
-                        return;
-                    }
+                // let job = queue.create('emails', comment).save(function(err){
+                //     if (err) {
+                //         console.log(err, "error in creating queue");
+                //         return;
+                //     }
                     
-                    console.log('job in queue ', job.id);
-                });
-
-                if (req.xhr){
-
-                    console.log("sending this to via xhr", comment);
-                    return res.status(200).json({
-                        data: {
-                            comment: comment
-                        },
-                        message: "comment has been added!"
-                    });
+                //     console.log('job in queue ', job.id);
+                // });
+        
+                if(req.xhr){
+                   return res.status(200).json({
+                    data : {
+                        comment : comment
+                    }, 
+                    message : "comment created!"
+                   });
+                }else{
+                    console.log("xhr feild");
                 }
-            
                 req.flash("success", "Comment has been posted");
                 return res.redirect("back");
 
@@ -103,42 +101,42 @@ module.exports.deleteComment = async function(req, res){
     
 }
 
+
 module.exports.displayComments = async function(req, res){
-    console.log(req.params.id);
+    // console.log(req.params.id);
 
     try{
         let post = await Post.findById(req.params.id);
         
-        if(post){   
+        if(post){
             if(req.xhr){
+
                 let listOfComments = post.comments;
                 let jsonData = [];
-                for(let comment = 0; comment < listOfComments.length; comment++){
-                    console.log(listOfComments[comment]+" comment");
-                    let populatedCommnet = await Comment.findById(listOfComments[comment]).populate("content user createdAt");
-                    // console.log(populatedCommnet.content);
+
+                for(let i = 0; i < listOfComments.length; i++){
+                    let populatedCommnet = await Comment.findById(listOfComments[i]).populate("content user createdAt");
                     jsonData.push(populatedCommnet);
                 }
+
                 jsonData.sort(function(a, b){
                     return b.createdAt-a.createdAt;
                 });
-                console.log(jsonData);
+    
                 return res.status(200).json({
                     data : {
-                        comments : jsonData
+                        comments : jsonData,
+                        post : post
                     }, 
-                    massage : "Displayed!!"
+                    message : "Displayed!!"
                 });
+
             }else{
-                console.log("No XHR request is made!");
-                return res.redirect("back");
+                console.log("No xhr request");
             }
-        }else{
-            console.log("post not found");
         }
     }catch(err){
-        console.log("Not able to display comments"+err);
-        return;
+        console.log("post not found",err);
     }
     
     

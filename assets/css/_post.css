@@ -157,3 +157,8 @@ body{
   #comment-user-name{
     font-weight: 550;
   }
+
+  #add-comment-form{
+    height : 60px;
+    width : 100%;
+  }

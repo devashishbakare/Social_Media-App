@@ -20,20 +20,15 @@
         </div>
         <div id = "like-comment-section">
             <button class = "post-content-button">128 Like</button>
-            <div id = "comment-div">
-                <form action="/comments/create" method="POST" id="submit-form" class = "comment-form">
-                    <input type="text" name = "content" id = "comment-input" placeholder="Add your comment...">
-                    <input type="hidden" name = "post"  value ="<%= post._id %>">
-                    <input type="submit" class = "post-content-button add-comment-button" value = "Add Comment">
-                </form>
-            </div>
-            <a href="/comments/display/<%= post._id%>" id = "show-post-comment">
+            
+            <a href="/comments/display/<%= post._id%>" id = "show-post-comment" data-comments-loaded>
                 Show Comments
             </a>
             <a href="/post/deletePost/<%= post._id %>" class = "delete-post-button">
                 Delete Post
             </a>
         </div>
+        <div id = "add-comment-form"></div>
         <div id = "user-only-comment">
 
         </div>
