@@ -1,6 +1,6 @@
-$(document).ready(function(){
-console.log("hey all");
 
+console.log("hey all");
+        let showPost = function(){
          let submitButton = $("#new-post-form");
            submitButton.submit(async function(event){
             event.preventDefault();
@@ -45,7 +45,7 @@ console.log("hey all");
                 <button class = "post-content-button">128 Like</button>
                
                 <a href="/comments/display/${currentPost}" id = "show-post-comment">
-                    Show all comments
+                   Comments
                 </a>
                 <a href="/post/deletePost/${currentPost}" class = "delete-post-button">
                     Delete Post
@@ -64,13 +64,12 @@ console.log("hey all");
        await $(deleteLink).click(async function(e){
             
             e.preventDefault();
-
+            
             await $.ajax({
                 type: 'get',
                 url: $(deleteLink).prop('href'),
-                
                 success: function(data){
-                    $(`#post-${data.data.post_id}`).remove();
+                    $(`#post-${data.data.postId}`).remove();
                 },
                 error: function(error){
                     console.log(error.responseText);
@@ -92,8 +91,11 @@ console.log("hey all");
         if(data) return data;
         return image;
     }   
+
+}
+showPost();
   
-});
+
     
 
 

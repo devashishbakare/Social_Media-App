@@ -138,8 +138,23 @@ module.exports.displayComments = async function(req, res){
     }catch(err){
         console.log("post not found",err);
     }
-    
-    
-    
+}
 
+module.exports.close = function(req, res){
+    
+    try{
+        if(req.xhr){
+            console.log("in xhr")
+            return res.status(200).json({
+                data : {
+                    commentId : req.params.id
+                },
+                message : "Hide closed section!"
+            });
+        }else{
+            console.log("No xhr found");
+        }   
+    }catch(err){
+        console.log("Error while closing "+err);
+    }
 }

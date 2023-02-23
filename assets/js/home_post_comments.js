@@ -14,17 +14,26 @@
                         let comment = data.data.comments;
                         let post = data.data.post;
                         console.log("this post "+post._id);
+
+                        let addComment =  $("#add-comment-form");
+                        let userComment = $("#user-only-comment");
                         
-                        $("#add-comment-form").append(getCommentBox(post._id));
-                            
+                        if(addComment.is(":hidden") && userComment.is(":hidden")){
+                            addComment.show();
+                            userComment.show();
+                        }
+                        else{
+                            addComment.css("height", "60px");
                             if(isCommnetLoadedBefore == 0){
+                                addComment.append(getCommentBox(post._id));
                                 for(let i = 0; i < comment.length; i++){
-                                    $("#user-only-comment").append(getCommentInHTML(comment[i]));
+                                    userComment.append(getCommentInHTML(comment[i]));
                                 }
                                 isCommnetLoadedBefore = 1;
                             }
-                        
+                        }
                         submitForm();
+                        closeCommentDiv();
                     }, error : function(err){
                         console.log("ajax success failed!", err);
                     }
@@ -60,8 +69,27 @@
         });
     });
    }
-        
-   
+
+  
+    var closeCommentDiv = function(){
+        let closeLink = $("#close-comment");
+        closeLink.click(async function(event){
+            event.preventDefault();
+            await $.ajax({
+                type : "GET",
+                url : closeLink.prop("href"),
+                success : function(data){
+                    $("#user-only-comment").hide();
+                    $("#add-comment-form").hide();
+                    console.log("yes closed!");
+                    
+                }, error : function(err){
+                    console.log("Error while closing comments "+err);
+                }
+            });
+        });
+    }
+
     //88
 
     let getCommentBox = function(currentPost){
@@ -71,6 +99,10 @@
                         <input type="hidden" name = "post"  value ="${currentPost}">
                         <input type="submit" class = "post-content-button add-comment-button" value = "Add Comment">
                     </form>
+                    <div>
+                        <a href = "/comments/close/${currentPost}" id = "close-comment"> Close </a>
+                    </div>
+                
                 </div>`);
     }
 
@@ -87,5 +119,4 @@
     }
     
     showComment();
-    
 }

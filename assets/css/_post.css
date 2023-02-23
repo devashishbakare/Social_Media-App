@@ -159,6 +159,14 @@ body{
   }
 
   #add-comment-form{
-    height : 60px;
+    /* height : 60px; */
     width : 100%;
+  }
+  #close-comment{
+    margin-left : 30%;
+  }
+
+  #user-only-comment{
+    max-height: 200px;
+    overflow: auto;
   }

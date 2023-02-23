@@ -59,7 +59,7 @@ module.exports.deletePost = async function(req, res){
             if (req.xhr){
                 return res.status(200).json({
                     data: {
-                        post_id: req.params.id
+                        postId: req.params.id
                     },
                     message: "Post deleted"
                 });
